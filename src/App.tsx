@@ -147,9 +147,20 @@ export const App: React.FC = () => {
     setSelectedIds((prev) => (prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]));
   };
 
-  const handleExplore = () => {
+  const [activeTab, setActiveTab] = useState<'home' | 'explore'>('home');
+
+  const handleHome = () => {
+    setActiveTab('home');
     setSearchQuery('');
     setSelectedTag(null);
+    setSortOption('newest');
+  };
+
+  const handleExplore = () => {
+    setActiveTab('explore');
+    setSearchQuery('');
+    setSelectedTag(null);
+    setSortOption('random');
   };
 
   const handleAmazeMe = () => {
@@ -170,8 +181,10 @@ export const App: React.FC = () => {
         onOpenUpload={() => setIsUploadOpen(true)}
         isDark={isDark}
         onToggleTheme={toggleTheme}
+        onHome={handleHome}
         onExplore={handleExplore}
         onAmazeMe={handleAmazeMe}
+        activeTab={activeTab}
       />
 
       {/* Main Layout Area */}

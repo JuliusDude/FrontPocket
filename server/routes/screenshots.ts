@@ -80,7 +80,7 @@ router.post('/', (req: Request, res: Response) => {
 router.get('/', (req: Request, res: Response) => {
   try {
     const { tag, search, sort } = req.query;
-    const sortVal = sort === 'oldest' || sort === 'most_tags' || sort === 'newest' ? (sort as 'oldest' | 'most_tags' | 'newest') : undefined;
+    const sortVal = sort === 'oldest' || sort === 'most_tags' || sort === 'newest' || sort === 'random' ? (sort as 'oldest' | 'most_tags' | 'newest' | 'random') : undefined;
     const filter = {
       tag: typeof tag === 'string' ? tag : undefined,
       search: typeof search === 'string' ? search : undefined,

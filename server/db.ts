@@ -220,6 +220,8 @@ export const dbService = {
       query += ` ORDER BY s.uploadedAt ASC`;
     } else if (filter?.sort === 'most_tags') {
       query += ` ORDER BY (SELECT COUNT(*) FROM screenshot_tags WHERE screenshotId = s.id) DESC, s.uploadedAt DESC`;
+    } else if (filter?.sort === 'random') {
+      query += ` ORDER BY RANDOM()`;
     } else {
       query += ` ORDER BY s.uploadedAt DESC`;
     }

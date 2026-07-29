@@ -18,4 +18,4 @@ export interface Screenshot {
   tags: Tag[];
 }
 
-export type SortOption = 'newest' | 'oldest' | 'most_tags';
+export type SortOption = 'newest' | 'oldest' | 'most_tags' | 'random';

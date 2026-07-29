@@ -7,8 +7,10 @@ interface NavbarProps {
   onOpenUpload: () => void;
   isDark: boolean;
   onToggleTheme: () => void;
+  onHome: () => void;
   onExplore: () => void;
   onAmazeMe: () => void;
+  activeTab: 'home' | 'explore';
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -17,13 +19,15 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenUpload,
   isDark,
   onToggleTheme,
+  onHome,
   onExplore,
   onAmazeMe,
+  activeTab,
 }) => {
   return (
     <nav className="fixed top-0 left-0 right-0 h-[64px] bg-[var(--color-canvas)] z-40 flex items-center px-4 gap-4 transition-colors">
       {/* Logo */}
-      <a href="#" onClick={(e) => { e.preventDefault(); onExplore(); }} className="flex-shrink-0 w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center transition-colors">
+      <a href="#" onClick={(e) => { e.preventDefault(); onHome(); }} className="flex-shrink-0 w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center transition-colors">
         <div className="w-6 h-6 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center font-bold text-sm">
           P
         </div>
@@ -31,8 +35,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Primary Links */}
       <div className="hidden md:flex items-center gap-1 font-semibold">
-        <button onClick={onExplore} className="px-4 py-3 rounded-full bg-[var(--color-ink)] text-[var(--color-canvas)] text-[16px] cursor-pointer">Home</button>
-        <button onClick={onExplore} className="px-4 py-3 rounded-full hover:bg-[var(--color-secondary-bg)] text-[var(--color-ink)] text-[16px] cursor-pointer">Explore</button>
+        <button onClick={onHome} className={`px-4 py-3 rounded-full text-[16px] cursor-pointer ${activeTab === 'home' ? 'bg-[var(--color-ink)] text-[var(--color-canvas)]' : 'hover:bg-[var(--color-secondary-bg)] text-[var(--color-ink)]'}`}>Home</button>
+        <button onClick={onExplore} className={`px-4 py-3 rounded-full text-[16px] cursor-pointer ${activeTab === 'explore' ? 'bg-[var(--color-ink)] text-[var(--color-canvas)]' : 'hover:bg-[var(--color-secondary-bg)] text-[var(--color-ink)]'}`}>Explore</button>
         <button onClick={onOpenUpload} className="px-4 py-3 rounded-full hover:bg-[var(--color-secondary-bg)] text-[var(--color-ink)] text-[16px] cursor-pointer">Create</button>
         <button onClick={onAmazeMe} className="px-4 py-3 rounded-full hover:bg-[var(--color-secondary-bg)] text-[var(--color-ink)] text-[16px] cursor-pointer flex items-center gap-2">
           <Wand2 className="w-4 h-4" />
