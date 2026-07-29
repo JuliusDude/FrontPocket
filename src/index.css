@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-primary: #e60023;
+    --color-primary-pressed: #cc001f;
+    --color-ink: #000000;
+    --color-ink-soft: #211922;
+    --color-body: #33332e;
+    --color-mute: #62625b;
+    --color-ash: #91918c;
+    --color-surface-card: #f6f6f3;
+    --color-surface-soft: #fbfbf9;
+    --color-canvas: #ffffff;
+    --color-secondary-bg: #e5e5e0;
+    --color-secondary-pressed: #c8c8c1;
+    --color-hairline: #dadad3;
+    --color-focus: #435ee5;
+    --color-error: #9e0a0a;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-body);
+    font-family: 'Pin Sans', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-canvas);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-ash);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-mute);
+}
+
+/* Pinterest Flat & Card Styles */
+.pinterest-card {
+  background: var(--color-surface-card);
+  border-radius: 16px;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+/* Modal styles */
+.pinterest-modal {
+  background: var(--color-canvas);
+  border-radius: 32px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+}
+
+/* CSS Masonry Grid column style */
+.masonry-grid {
+  column-count: 1;
+  column-gap: 8px;
+}
+
+@media (min-width: 480px) {
+  .masonry-grid {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 768px) {
+  .masonry-grid {
+    column-count: 3;
+  }
+}
+
+@media (min-width: 1024px) {
+  .masonry-grid {
+    column-count: 4;
+  }
+}
+
+@media (min-width: 1440px) {
+  .masonry-grid {
+    column-count: 5;
+  }
+}
+
+@media (min-width: 1920px) {
+  .masonry-grid {
+    column-count: 6;
+  }
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 8px;
+}
+
+/* Common components based on DESIGN.md */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 6px 14px;
+  height: 40px;
+  transition: background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover, .btn-primary:active {
+  background-color: var(--color-primary-pressed);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary-bg);
+  color: var(--color-ink);
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 6px 14px;
+  height: 40px;
+  transition: background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-secondary:hover, .btn-secondary:active {
+  background-color: var(--color-secondary-pressed);
+}
+
+.display-xl {
+  font-size: 70px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -1.2px;
+}
+
+.heading-xl {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -1.2px;
+}
