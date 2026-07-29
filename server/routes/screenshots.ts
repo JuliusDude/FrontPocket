@@ -107,14 +107,15 @@ router.get('/:id', (req: Request<{ id: string }>, res: Response) => {
   }
 });
 
-// PATCH /api/screenshots/:id - Manually edit tags, prompt, notes
+// PATCH /api/screenshots/:id - Manually edit tags, prompt, notes, title
 router.patch('/:id', (req: Request<{ id: string }>, res: Response) => {
   try {
-    const { userEditedPrompt, notes, rebuildPrompt, tags } = req.body;
+    const { userEditedPrompt, notes, rebuildPrompt, title, tags } = req.body;
     const updated = dbService.updateScreenshot(req.params.id, {
       userEditedPrompt,
       notes,
       rebuildPrompt,
+      title,
       tags,
     });
 

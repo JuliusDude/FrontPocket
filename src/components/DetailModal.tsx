@@ -32,6 +32,7 @@ export const DetailModal: React.FC<DetailModalProps> = ({
 }) => {
   const [copied, setCopied] = useState(false);
   const [notes, setNotes] = useState('');
+  const [title, setTitle] = useState('');
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
@@ -39,6 +40,7 @@ export const DetailModal: React.FC<DetailModalProps> = ({
   useEffect(() => {
     if (screenshot) {
       setNotes(screenshot.notes ?? '');
+      setTitle(screenshot.title ?? '');
       setShowConfirmDelete(false);
     }
   }, [screenshot]);
@@ -68,10 +70,9 @@ export const DetailModal: React.FC<DetailModalProps> = ({
     }
   };
 
-  const handleSaveNotes = async () => {
+  const handleSaveMeta = async () => {
     try {
-      await onUpdate(screenshot.id, { notes });
-      onToast('Notes updated', 'success');
+      await onUpdate(screenshot.id, { notes, title });
     } catch (_) {}
   };
 
@@ -177,11 +178,23 @@ export const DetailModal: React.FC<DetailModalProps> = ({
             {/* Meta & Actions */}
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-2">
+                <label className="text-[16px] font-semibold text-[var(--color-ink)]">Title</label>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  onBlur={handleSaveMeta}
+                  placeholder="Add a title to this pin..."
+                  className="w-full bg-[var(--color-surface-card)] text-[var(--color-ink)] text-[16px] p-4 rounded-[16px] border-none focus:outline-none focus:ring-2 focus:ring-[var(--color-focus)]"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
                 <label className="text-[16px] font-semibold text-[var(--color-ink)]">Notes</label>
                 <textarea
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  onBlur={handleSaveNotes}
+                  onBlur={handleSaveMeta}
                   placeholder="Add a note to this pin..."
                   className="w-full bg-[var(--color-surface-card)] text-[var(--color-ink)] text-[16px] p-4 rounded-[16px] border-none focus:outline-none focus:ring-2 focus:ring-[var(--color-focus)] resize-none"
                   rows={2}

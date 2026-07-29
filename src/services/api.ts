@@ -39,12 +39,12 @@ export const api = {
 
   async updateScreenshot(
     id: string,
-    data: { userEditedPrompt?: string | null; notes?: string | null; rebuildPrompt?: string | null; tags?: string[] }
+    updates: { userEditedPrompt?: string | null; notes?: string | null; rebuildPrompt?: string | null; title?: string | null; tags?: string[] }
   ): Promise<Screenshot> {
     const res = await fetch(`${API_BASE}/screenshots/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify(updates),
     });
 
     if (!res.ok) throw new Error('Failed to update screenshot');

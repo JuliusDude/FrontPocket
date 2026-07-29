@@ -131,20 +131,21 @@ export const dbService = {
     stmt.run(id);
   },
 
-  updateScreenshot(id: string, updates: { userEditedPrompt?: string | null; notes?: string | null; rebuildPrompt?: string | null; tags?: string[] }) {
+  updateScreenshot(id: string, updates: { userEditedPrompt?: string | null; notes?: string | null; rebuildPrompt?: string | null; title?: string | null; tags?: string[] }) {
     const current = db.prepare(`SELECT * FROM screenshots WHERE id = ?`).get(id) as ScreenshotRow | undefined;
     if (!current) return null;
 
     const userEditedPrompt = updates.userEditedPrompt !== undefined ? updates.userEditedPrompt : current.userEditedPrompt;
     const notes = updates.notes !== undefined ? updates.notes : current.notes;
     const rebuildPrompt = updates.rebuildPrompt !== undefined ? updates.rebuildPrompt : current.rebuildPrompt;
+    const title = updates.title !== undefined ? updates.title : (current as any).title;
 
     const stmt = db.prepare(`
       UPDATE screenshots
-      SET userEditedPrompt = ?, notes = ?, rebuildPrompt = ?
+      SET userEditedPrompt = ?, notes = ?, rebuildPrompt = ?, title = ?
       WHERE id = ?
     `);
-    stmt.run(userEditedPrompt, notes, rebuildPrompt, id);
+    stmt.run(userEditedPrompt, notes, rebuildPrompt, title, id);
 
     if (updates.tags) {
       this.setScreenshotTags(id, updates.tags);

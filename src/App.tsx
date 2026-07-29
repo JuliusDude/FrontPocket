@@ -119,7 +119,7 @@ export const App: React.FC = () => {
 
   const handleUpdateScreenshot = async (
     id: string,
-    updates: { userEditedPrompt?: string | null; notes?: string | null; rebuildPrompt?: string | null; tags?: string[] }
+    updates: { userEditedPrompt?: string | null; notes?: string | null; rebuildPrompt?: string | null; title?: string | null; tags?: string[] }
   ) => {
     const updated = await api.updateScreenshot(id, updates);
     setScreenshots((prev) => prev.map((s) => (s.id === id ? updated : s)));

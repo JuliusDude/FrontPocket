@@ -8,6 +8,7 @@ export interface Tag {
 export interface Screenshot {
   id: string;
   filePath: string;
+  title?: string | null;
   uploadedAt: string;
   rebuildPrompt: string | null;
   userEditedPrompt: string | null;

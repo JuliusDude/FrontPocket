@@ -41,14 +41,14 @@ export const ScreenshotCard: React.FC<ScreenshotCardProps> = ({
   return (
     <div
       onClick={handleCardClick}
-      className={`group relative rounded-[16px] overflow-hidden bg-[var(--color-surface-card)] cursor-pointer mb-2 transform-gpu ${
-        isSelected ? 'ring-4 ring-[var(--color-primary)] ring-offset-2' : ''
+      className={`group relative flex flex-col mb-4 cursor-pointer transform-gpu ${
+        isSelected ? 'ring-4 ring-[var(--color-primary)] ring-offset-2 rounded-[16px]' : ''
       }`}
     >
-      <div className="relative w-full h-full overflow-hidden">
+      <div className="relative w-full rounded-[16px] overflow-hidden bg-[var(--color-surface-card)]">
         <img
           src={screenshot.filePath}
-          alt="Pin Reference"
+          alt={screenshot.title || "Pin Reference"}
           loading="lazy"
           className={`w-full h-auto object-cover ${isAnalyzing ? 'opacity-50 blur-[2px]' : ''}`}
         />
@@ -65,15 +65,6 @@ export const ScreenshotCard: React.FC<ScreenshotCardProps> = ({
           </div>
         </div>
 
-        {/* Tag Pill Overlay */}
-        {screenshot.tags && screenshot.tags.length > 0 && !isAnalyzing && (
-          <div className="absolute bottom-4 left-4 pointer-events-none">
-             <span className="bg-[var(--color-canvas)] text-[var(--color-ink)] font-bold text-[12px] px-3 py-1.5 rounded-full shadow-sm">
-               {screenshot.tags[0].name.charAt(0).toUpperCase() + screenshot.tags[0].name.slice(1)} look
-             </span>
-          </div>
-        )}
-
         {isAnalyzing && (
           <div className="absolute inset-0 bg-[var(--color-canvas)]/70 flex flex-col items-center justify-center p-4">
             <div className="flex items-center gap-2 bg-[var(--color-ink)] text-[var(--color-canvas)] px-4 py-2 rounded-full text-[14px] font-bold shadow-lg animate-pulse">
@@ -89,6 +80,24 @@ export const ScreenshotCard: React.FC<ScreenshotCardProps> = ({
               <AlertCircle className="w-4 h-4" />
               <span>Analysis Failed</span>
             </div>
+          </div>
+        )}
+      </div>
+
+      {/* Pin Meta (Below Image) */}
+      <div className="mt-2 px-1 flex flex-col gap-1">
+        {screenshot.title && (
+          <h3 className="text-[14px] font-bold text-[var(--color-ink)] truncate">
+            {screenshot.title}
+          </h3>
+        )}
+        {screenshot.tags && screenshot.tags.length > 0 && !isAnalyzing && (
+          <div className="flex flex-wrap gap-1">
+            {screenshot.tags.slice(0, 3).map((t) => (
+              <span key={t.id} className="text-[12px] text-[var(--color-mute)] truncate max-w-[120px]">
+                #{t.name}
+              </span>
+            ))}
           </div>
         )}
       </div>
