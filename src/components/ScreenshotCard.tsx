@@ -87,7 +87,7 @@ export const ScreenshotCard: React.FC<ScreenshotCardProps> = ({
           <div className="absolute top-4 left-4 z-20">
             <div className="flex items-center gap-1.5 bg-[var(--color-error)] text-white px-3 py-1 rounded-full text-[12px] font-bold">
               <AlertCircle className="w-4 h-4" />
-              <span>API Key Required</span>
+              <span>Analysis Failed</span>
             </div>
           </div>
         )}

@@ -122,6 +122,15 @@ export const dbService = {
     stmt.run(errorMessage, id);
   },
 
+  setScreenshotAnalyzing(id: string) {
+    const stmt = db.prepare(`
+      UPDATE screenshots
+      SET status = 'analyzing', errorMessage = NULL
+      WHERE id = ?
+    `);
+    stmt.run(id);
+  },
+
   updateScreenshot(id: string, updates: { userEditedPrompt?: string | null; notes?: string | null; rebuildPrompt?: string | null; tags?: string[] }) {
     const current = db.prepare(`SELECT * FROM screenshots WHERE id = ?`).get(id) as ScreenshotRow | undefined;
     if (!current) return null;

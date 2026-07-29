@@ -193,8 +193,7 @@ router.post('/:id/regenerate', (req: Request<{ id: string }>, res: Response) => 
     }
 
     // Set status back to analyzing
-    dbService.setScreenshotError(screenshotId, ''); // reset error
-    dbService.updateScreenshot(screenshotId, {});
+    dbService.setScreenshotAnalyzing(screenshotId);
     const updated = dbService.getScreenshotById(screenshotId);
 
     // Re-run background analysis

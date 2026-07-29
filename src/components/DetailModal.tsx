@@ -163,9 +163,9 @@ export const DetailModal: React.FC<DetailModalProps> = ({
                   <span className="text-[16px] font-semibold">Analyzing image...</span>
                 </div>
               ) : isError ? (
-                <div className="text-[var(--color-error)] text-[16px] font-semibold flex items-center gap-2">
-                  <AlertCircle className="w-5 h-5" />
-                  Vision AI Key Required
+                <div className="text-[var(--color-error)] text-[14px] font-semibold flex items-start gap-2 overflow-y-auto">
+                  <AlertCircle className="w-5 h-5 mt-0.5 shrink-0" />
+                  <div className="flex-1 whitespace-pre-wrap">{screenshot.errorMessage || 'Vision AI Key Required'}</div>
                 </div>
               ) : (
                 <pre className="text-[14px] text-[var(--color-ink)] whitespace-pre-wrap font-mono leading-relaxed selection:bg-[var(--color-primary)] selection:text-white">
