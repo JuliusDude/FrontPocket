@@ -1,19 +1,23 @@
 import React from 'react';
-import { Search, Plus, Bell, MessageCircle, User } from 'lucide-react';
+import { Search, Plus, Bell, MessageCircle, User, Moon, Sun } from 'lucide-react';
 
 interface NavbarProps {
   searchQuery: string;
   onSearchChange: (q: string) => void;
   onOpenUpload: () => void;
+  isDark: boolean;
+  onToggleTheme: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   searchQuery,
   onSearchChange,
   onOpenUpload,
+  isDark,
+  onToggleTheme,
 }) => {
   return (
-    <nav className="fixed top-0 left-0 right-0 h-[64px] bg-[var(--color-canvas)] z-40 flex items-center px-4 gap-4">
+    <nav className="fixed top-0 left-0 right-0 h-[64px] bg-[var(--color-canvas)] z-40 flex items-center px-4 gap-4 transition-colors">
       {/* Logo */}
       <a href="#" className="flex-shrink-0 w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center transition-colors">
         <div className="w-6 h-6 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center font-bold text-sm">
@@ -23,7 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Primary Links */}
       <div className="hidden md:flex items-center gap-1 font-semibold">
-        <a href="#" className="px-4 py-3 rounded-full bg-[var(--color-ink)] text-white text-[16px]">Home</a>
+        <a href="#" className="px-4 py-3 rounded-full bg-[var(--color-ink)] text-[var(--color-canvas)] text-[16px]">Home</a>
         <a href="#" className="px-4 py-3 rounded-full hover:bg-[var(--color-secondary-bg)] text-[var(--color-ink)] text-[16px]">Explore</a>
         <button onClick={onOpenUpload} className="px-4 py-3 rounded-full hover:bg-[var(--color-secondary-bg)] text-[var(--color-ink)] text-[16px] cursor-pointer">Create</button>
       </div>
@@ -38,12 +42,15 @@ export const Navbar: React.FC<NavbarProps> = ({
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search for designs, tags..."
-          className="w-full h-[48px] bg-[var(--color-surface-card)] hover:bg-[#e9e9e9] group-focus-within:bg-[var(--color-canvas)] group-focus-within:border group-focus-within:border-[var(--color-ash)] text-[var(--color-ink)] text-[16px] rounded-full pl-12 pr-4 focus:outline-none focus:ring-4 focus:ring-[var(--color-focus)]/20 transition-all"
+          className="w-full h-[48px] bg-[var(--color-surface-card)] hover:bg-[var(--color-secondary-bg)] group-focus-within:bg-[var(--color-canvas)] group-focus-within:border group-focus-within:border-[var(--color-ash)] text-[var(--color-ink)] text-[16px] rounded-full pl-12 pr-4 focus:outline-none focus:ring-4 focus:ring-[var(--color-focus)]/20 transition-all"
         />
       </div>
 
       {/* Right Actions */}
       <div className="flex items-center gap-2">
+        <button onClick={onToggleTheme} className="w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center text-[var(--color-ink)] transition-colors" title="Toggle Theme">
+          {isDark ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
+        </button>
         <button onClick={onOpenUpload} className="w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center text-[var(--color-ink)] transition-colors" title="Create Pin">
           <Plus className="w-6 h-6" />
         </button>

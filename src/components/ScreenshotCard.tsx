@@ -75,8 +75,8 @@ export const ScreenshotCard: React.FC<ScreenshotCardProps> = ({
         )}
 
         {isAnalyzing && (
-          <div className="absolute inset-0 bg-white/70 flex flex-col items-center justify-center p-4">
-            <div className="flex items-center gap-2 bg-[var(--color-ink)] text-white px-4 py-2 rounded-full text-[14px] font-bold shadow-lg animate-pulse">
+          <div className="absolute inset-0 bg-[var(--color-canvas)]/70 flex flex-col items-center justify-center p-4">
+            <div className="flex items-center gap-2 bg-[var(--color-ink)] text-[var(--color-canvas)] px-4 py-2 rounded-full text-[14px] font-bold shadow-lg animate-pulse">
               <Loader2 className="w-4 h-4 animate-spin" />
               <span>Analyzing...</span>
             </div>

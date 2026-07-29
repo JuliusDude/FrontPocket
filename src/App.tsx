@@ -24,6 +24,31 @@ export const App: React.FC = () => {
   // Toast notifications
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
+  // Theme logic
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      setIsDark(true);
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDark((prev) => {
+      const next = !prev;
+      if (next) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+      return next;
+    });
+  };
+
   const addToast = useCallback((message: string, type: 'success' | 'error' | 'info' = 'info') => {
     const id = 'toast_' + Math.random().toString(36).substring(2, 9);
     setToasts((prev) => [...prev, { id, message, type }]);
@@ -123,18 +148,20 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--color-canvas)] text-[var(--color-body)]">
+    <div className="min-h-screen flex flex-col bg-[var(--color-canvas)] text-[var(--color-body)] transition-colors">
       {/* Primary Nav */}
       <Navbar
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         onOpenUpload={() => setIsUploadOpen(true)}
+        isDark={isDark}
+        onToggleTheme={toggleTheme}
       />
 
       {/* Main Layout Area */}
       <main className="flex-1 max-w-[1920px] w-full mx-auto">
         {/* Filter bar acts as the secondary nav */}
-        <div className="px-4 sm:px-6 mt-[64px] pb-4 sticky top-[64px] z-30 bg-white/90 backdrop-blur-md">
+        <div className="px-4 sm:px-6 mt-[64px] pb-4 sticky top-[64px] z-30 bg-[var(--color-canvas)]/90 backdrop-blur-md">
           <TagFilterBar
             tags={tags}
             selectedTag={selectedTag}
