@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Plus, Bell, MessageCircle, User, Moon, Sun } from 'lucide-react';
+import { Search, Plus, Moon, Sun, Wand2 } from 'lucide-react';
 
 interface NavbarProps {
   searchQuery: string;
@@ -7,6 +7,8 @@ interface NavbarProps {
   onOpenUpload: () => void;
   isDark: boolean;
   onToggleTheme: () => void;
+  onExplore: () => void;
+  onAmazeMe: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -15,11 +17,13 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenUpload,
   isDark,
   onToggleTheme,
+  onExplore,
+  onAmazeMe,
 }) => {
   return (
     <nav className="fixed top-0 left-0 right-0 h-[64px] bg-[var(--color-canvas)] z-40 flex items-center px-4 gap-4 transition-colors">
       {/* Logo */}
-      <a href="#" className="flex-shrink-0 w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center transition-colors">
+      <a href="#" onClick={(e) => { e.preventDefault(); onExplore(); }} className="flex-shrink-0 w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center transition-colors">
         <div className="w-6 h-6 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center font-bold text-sm">
           P
         </div>
@@ -27,9 +31,13 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Primary Links */}
       <div className="hidden md:flex items-center gap-1 font-semibold">
-        <a href="#" className="px-4 py-3 rounded-full bg-[var(--color-ink)] text-[var(--color-canvas)] text-[16px]">Home</a>
-        <a href="#" className="px-4 py-3 rounded-full hover:bg-[var(--color-secondary-bg)] text-[var(--color-ink)] text-[16px]">Explore</a>
+        <button onClick={onExplore} className="px-4 py-3 rounded-full bg-[var(--color-ink)] text-[var(--color-canvas)] text-[16px] cursor-pointer">Home</button>
+        <button onClick={onExplore} className="px-4 py-3 rounded-full hover:bg-[var(--color-secondary-bg)] text-[var(--color-ink)] text-[16px] cursor-pointer">Explore</button>
         <button onClick={onOpenUpload} className="px-4 py-3 rounded-full hover:bg-[var(--color-secondary-bg)] text-[var(--color-ink)] text-[16px] cursor-pointer">Create</button>
+        <button onClick={onAmazeMe} className="px-4 py-3 rounded-full hover:bg-[var(--color-secondary-bg)] text-[var(--color-ink)] text-[16px] cursor-pointer flex items-center gap-2">
+          <Wand2 className="w-4 h-4" />
+          Amaze me
+        </button>
       </div>
 
       {/* Search Bar */}
@@ -48,20 +56,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Right Actions */}
       <div className="flex items-center gap-2">
+        <button onClick={onAmazeMe} className="md:hidden w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center text-[var(--color-ink)] transition-colors" title="Amaze me">
+          <Wand2 className="w-6 h-6" />
+        </button>
         <button onClick={onToggleTheme} className="w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center text-[var(--color-ink)] transition-colors" title="Toggle Theme">
           {isDark ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
         </button>
         <button onClick={onOpenUpload} className="w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center text-[var(--color-ink)] transition-colors" title="Create Pin">
           <Plus className="w-6 h-6" />
-        </button>
-        <button className="hidden sm:flex w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] items-center justify-center text-[var(--color-mute)] transition-colors">
-          <Bell className="w-6 h-6" />
-        </button>
-        <button className="w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center text-[var(--color-mute)] transition-colors">
-          <MessageCircle className="w-6 h-6" />
-        </button>
-        <button className="w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center text-[var(--color-mute)] transition-colors">
-          <User className="w-6 h-6" />
         </button>
       </div>
     </nav>

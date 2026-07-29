@@ -147,6 +147,20 @@ export const App: React.FC = () => {
     setSelectedIds((prev) => (prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]));
   };
 
+  const handleExplore = () => {
+    setSearchQuery('');
+    setSelectedTag(null);
+  };
+
+  const handleAmazeMe = () => {
+    if (screenshots.length > 0) {
+      const randomIndex = Math.floor(Math.random() * screenshots.length);
+      setActiveScreenshot(screenshots[randomIndex]);
+    } else {
+      addToast('Upload some pins first to be amazed!', 'info');
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-[var(--color-canvas)] text-[var(--color-body)] transition-colors">
       {/* Primary Nav */}
@@ -156,6 +170,8 @@ export const App: React.FC = () => {
         onOpenUpload={() => setIsUploadOpen(true)}
         isDark={isDark}
         onToggleTheme={toggleTheme}
+        onExplore={handleExplore}
+        onAmazeMe={handleAmazeMe}
       />
 
       {/* Main Layout Area */}
