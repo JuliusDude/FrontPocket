@@ -128,6 +128,7 @@ export const App: React.FC = () => {
       <Navbar
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
+        onOpenUpload={() => setIsUploadOpen(true)}
       />
 
       {/* Main Layout Area */}

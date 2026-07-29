@@ -4,11 +4,13 @@ import { Search, Plus, Bell, MessageCircle, User } from 'lucide-react';
 interface NavbarProps {
   searchQuery: string;
   onSearchChange: (q: string) => void;
+  onOpenUpload: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   searchQuery,
   onSearchChange,
+  onOpenUpload,
 }) => {
   return (
     <nav className="fixed top-0 left-0 right-0 h-[64px] bg-[var(--color-canvas)] z-40 flex items-center px-4 gap-4">
@@ -23,7 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="hidden md:flex items-center gap-1 font-semibold">
         <a href="#" className="px-4 py-3 rounded-full bg-[var(--color-ink)] text-white text-[16px]">Home</a>
         <a href="#" className="px-4 py-3 rounded-full hover:bg-[var(--color-secondary-bg)] text-[var(--color-ink)] text-[16px]">Explore</a>
-        <a href="#" className="px-4 py-3 rounded-full hover:bg-[var(--color-secondary-bg)] text-[var(--color-ink)] text-[16px]">Create</a>
+        <button onClick={onOpenUpload} className="px-4 py-3 rounded-full hover:bg-[var(--color-secondary-bg)] text-[var(--color-ink)] text-[16px] cursor-pointer">Create</button>
       </div>
 
       {/* Search Bar */}
@@ -42,7 +44,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Right Actions */}
       <div className="flex items-center gap-2">
-        <button className="w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center text-[var(--color-mute)] transition-colors">
+        <button onClick={onOpenUpload} className="w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center text-[var(--color-ink)] transition-colors" title="Create Pin">
+          <Plus className="w-6 h-6" />
+        </button>
+        <button className="hidden sm:flex w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] items-center justify-center text-[var(--color-mute)] transition-colors">
           <Bell className="w-6 h-6" />
         </button>
         <button className="w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center text-[var(--color-mute)] transition-colors">
