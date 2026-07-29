@@ -6,7 +6,6 @@ import cors from 'cors';
 import path from 'path';
 import screenshotRoutes from './routes/screenshots';
 import tagRoutes from './routes/tags';
-import settingsRoutes from './routes/settings';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -21,7 +20,6 @@ app.use('/uploads', express.static(uploadsDir));
 // API routes
 app.use('/api/screenshots', screenshotRoutes);
 app.use('/api/tags', tagRoutes);
-app.use('/api/settings', settingsRoutes);
 
 // Health check
 app.get('/api/health', (_req, res) => {

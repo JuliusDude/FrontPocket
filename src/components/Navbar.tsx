@@ -1,15 +1,12 @@
 import React from 'react';
-import { Search, Plus, Bell, MessageCircle, User, Settings } from 'lucide-react';
-import { SettingsStatus } from '../types';
+import { Search, Plus, Bell, MessageCircle, User } from 'lucide-react';
 
 interface NavbarProps {
-  onOpenSettings: () => void;
   searchQuery: string;
   onSearchChange: (q: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  onOpenSettings,
   searchQuery,
   onSearchChange,
 }) => {
@@ -51,8 +48,8 @@ export const Navbar: React.FC<NavbarProps> = ({
         <button className="w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center text-[var(--color-mute)] transition-colors">
           <MessageCircle className="w-6 h-6" />
         </button>
-        <button onClick={onOpenSettings} className="w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center text-[var(--color-mute)] transition-colors">
-          <Settings className="w-6 h-6" />
+        <button className="w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center text-[var(--color-mute)] transition-colors">
+          <User className="w-6 h-6" />
         </button>
       </div>
     </nav>

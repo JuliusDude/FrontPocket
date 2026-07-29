@@ -88,7 +88,7 @@ export async function analyzeScreenshot(filePath: string, apiKeyOverride?: strin
   if (geminiKey || (generalKey && (generalKey.startsWith('AIza') || !anthropicKey))) {
     const keyToUse = geminiKey || generalKey;
     if (!keyToUse || keyToUse.trim() === '') {
-      throw new Error('Google Gemini API Key is missing. Please add your key in Settings.');
+      throw new Error('Google Gemini API Key is missing. Please add your key in the .env file.');
     }
 
     const genAI = new GoogleGenerativeAI(keyToUse.trim());
@@ -152,5 +152,5 @@ export async function analyzeScreenshot(filePath: string, apiKeyOverride?: strin
     return parseVisionJSON(contentBlock.text);
   }
 
-  throw new Error('No API Key configured. Please add your Google Gemini Studio API Key in Settings.');
+  throw new Error('No API Key configured. Please add your Google Gemini Studio API Key in the .env file.');
 }

@@ -1,18 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Screenshot, Tag, SettingsStatus, SortOption } from './types';
+import { Screenshot, Tag, SortOption } from './types';
 import { api } from './services/api';
 import { Navbar } from './components/Navbar';
 import { UploadZone } from './components/UploadZone';
 import { TagFilterBar } from './components/TagFilterBar';
 import { GalleryGrid } from './components/GalleryGrid';
 import { DetailModal } from './components/DetailModal';
-import { SettingsModal } from './components/SettingsModal';
 import { ToastContainer, ToastMessage } from './components/Toast';
 
 export const App: React.FC = () => {
   const [screenshots, setScreenshots] = useState<Screenshot[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
-  const [settings, setSettings] = useState<SettingsStatus | null>(null);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOption, setSortOption] = useState<SortOption>('newest');
@@ -20,7 +18,6 @@ export const App: React.FC = () => {
   // Modals & Selection state
   const [activeScreenshot, setActiveScreenshot] = useState<Screenshot | null>(null);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isBulkMode, setIsBulkMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
@@ -38,14 +35,12 @@ export const App: React.FC = () => {
 
   const loadData = useCallback(async () => {
     try {
-      const [screenshotData, tagData, settingsData] = await Promise.all([
+      const [screenshotData, tagData] = await Promise.all([
         api.fetchScreenshots(selectedTag || undefined, searchQuery || undefined, sortOption),
         api.fetchTags(),
-        api.fetchSettings(),
       ]);
       setScreenshots(screenshotData);
       setTags(tagData);
-      setSettings(settingsData);
     } catch (err) {
       console.error('Failed loading data:', err);
     }
@@ -127,41 +122,16 @@ export const App: React.FC = () => {
     setSelectedIds((prev) => (prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]));
   };
 
-  const handleSaveSettings = async (payload: { geminiApiKey?: string; anthropicApiKey?: string; apiKey?: string; model?: string }) => {
-    const updated = await api.updateSettings(payload);
-    setSettings(updated);
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-[var(--color-canvas)] text-[var(--color-body)]">
       {/* Primary Nav */}
       <Navbar
-        onOpenSettings={() => setIsSettingsOpen(true)}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
       />
 
       {/* Main Layout Area */}
       <main className="flex-1 max-w-[1920px] w-full mx-auto">
-        {settings && !settings.hasApiKey && (
-          <div className="px-6 py-4 mb-4 mt-16 max-w-7xl mx-auto">
-            <div className="p-4 rounded-[16px] bg-[var(--color-surface-card)] flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <span className="text-xl">✨</span>
-                <div>
-                  <p className="font-bold text-[var(--color-ink)] text-[16px]">AI Vision API Key Required</p>
-                  <p className="text-[var(--color-mute)] text-[14px]">
-                    Add your free Gemini API key to enable auto-tagging.
-                  </p>
-                </div>
-              </div>
-              <button onClick={() => setIsSettingsOpen(true)} className="btn-primary">
-                Add Key
-              </button>
-            </div>
-          </div>
-        )}
-
         {/* Filter bar acts as the secondary nav */}
         <div className="px-4 sm:px-6 mt-[64px] pb-4 sticky top-[64px] z-30 bg-white/90 backdrop-blur-md">
           <TagFilterBar
@@ -196,14 +166,6 @@ export const App: React.FC = () => {
         onUpdate={handleUpdateScreenshot}
         onRegenerate={handleRegenerateScreenshot}
         onDelete={handleDeleteScreenshot}
-        onToast={addToast}
-      />
-
-      <SettingsModal
-        settings={settings}
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
-        onSave={handleSaveSettings}
         onToast={addToast}
       />
 

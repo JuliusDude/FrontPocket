@@ -1,4 +1,4 @@
-import { Screenshot, Tag, SettingsStatus, SortOption } from '../types';
+import { Screenshot, Tag, SortOption } from '../types';
 
 const API_BASE = '/api';
 
@@ -76,22 +76,6 @@ export const api = {
   async fetchTags(): Promise<Tag[]> {
     const res = await fetch(`${API_BASE}/tags`);
     if (!res.ok) throw new Error('Failed to fetch tags');
-    return res.json();
-  },
-
-  async fetchSettings(): Promise<SettingsStatus> {
-    const res = await fetch(`${API_BASE}/settings`);
-    if (!res.ok) throw new Error('Failed to fetch settings');
-    return res.json();
-  },
-
-  async updateSettings(payload: { geminiApiKey?: string; anthropicApiKey?: string; apiKey?: string; model?: string }): Promise<SettingsStatus> {
-    const res = await fetch(`${API_BASE}/settings`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) throw new Error('Failed to update settings');
     return res.json();
   },
 };
