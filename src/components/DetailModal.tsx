@@ -70,6 +70,25 @@ export const DetailModal: React.FC<DetailModalProps> = ({
     }
   };
 
+  const handleDownloadMarkdown = () => {
+    try {
+      const blob = new Blob([displayPrompt], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      // Default to "DESIGN.md" unless the user gave the pin a specific title
+      const filename = screenshot.title ? `${screenshot.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_design.md` : 'DESIGN.md';
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      onToast('DESIGN.md downloaded successfully!', 'success');
+    } catch (_) {
+      onToast('Failed to download markdown', 'error');
+    }
+  };
+
   const handleSaveMeta = async () => {
     try {
       await onUpdate(screenshot.id, { notes, title });
@@ -147,6 +166,13 @@ export const DetailModal: React.FC<DetailModalProps> = ({
                 </p>
               </div>
               <div className="flex gap-2">
+                <button
+                  onClick={handleDownloadMarkdown}
+                  className="btn-secondary whitespace-nowrap"
+                  title="Download as DESIGN.md"
+                >
+                  Download .md
+                </button>
                 <button
                   onClick={handleCopyPrompt}
                   className="btn-primary"
