@@ -92,10 +92,10 @@ export async function analyzeScreenshot(filePath: string, apiKeyOverride?: strin
     }
 
     const genAI = new GoogleGenerativeAI(keyToUse.trim());
-    const selectedModel = modelOverride || process.env.VISION_MODEL || 'gemini-2.0-flash';
+    const selectedModel = modelOverride || process.env.VISION_MODEL || 'gemini-3.1-flash-lite';
     
-    // Fallback to gemini-2.0-flash if invalid model string
-    const modelName = selectedModel.includes('claude') ? 'gemini-2.0-flash' : selectedModel;
+    // Fallback to gemini-3.1-flash-lite if invalid model string
+    const modelName = selectedModel.includes('claude') ? 'gemini-3.1-flash-lite' : selectedModel;
     const model = genAI.getGenerativeModel({ model: modelName });
 
     const result = await model.generateContent([
