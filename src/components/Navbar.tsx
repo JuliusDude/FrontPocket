@@ -27,9 +27,13 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <nav className="fixed top-0 left-0 right-0 h-[64px] bg-[var(--color-canvas)] z-40 flex items-center px-4 gap-4 transition-colors">
       {/* Logo */}
-      <a href="#" onClick={(e) => { e.preventDefault(); onHome(); }} className="flex-shrink-0 w-12 h-12 rounded-full hover:bg-[var(--color-secondary-bg)] flex items-center justify-center transition-colors">
-        <img src="/logo.jpg" alt="FrontPocket Logo" className="w-8 h-8 rounded-[8px] object-cover shadow-sm hover:scale-105 transition-transform" />
-      </a>
+      <div className="flex-shrink-0 flex items-center justify-center select-none pointer-events-none">
+        <img
+          src={isDark ? '/logo_dark.png' : '/logo_light.png'}
+          alt="FrontPocket Logo"
+          className="w-10 h-10 object-contain rounded-lg"
+        />
+      </div>
 
       {/* Primary Links */}
       <div className="hidden md:flex items-center gap-1 font-semibold">

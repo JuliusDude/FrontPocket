@@ -195,7 +195,7 @@ export const dbService = {
     return { ...row, tags };
   },
 
-  getScreenshots(filter?: { tag?: string; search?: string; sort?: 'newest' | 'oldest' | 'most_tags' }): FullScreenshot[] {
+  getScreenshots(filter?: { tag?: string; search?: string; sort?: 'newest' | 'oldest' | 'most_tags' | 'random' }): FullScreenshot[] {
     let query = `
       SELECT DISTINCT s.*
       FROM screenshots s

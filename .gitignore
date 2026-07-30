@@ -5,3 +5,4 @@ uploads/*
 data/*.db
 data/*.db-journal
 .env
+CONTEXT.md
