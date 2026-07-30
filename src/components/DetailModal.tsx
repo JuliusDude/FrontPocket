@@ -12,6 +12,7 @@ import {
   AlertCircle,
   Tag as TagIcon
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface DetailModalProps {
   screenshot: Screenshot | null;
@@ -120,11 +121,18 @@ export const DetailModal: React.FC<DetailModalProps> = ({
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       onClick={onClose}
       className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex flex-col pt-12 items-center p-4 overflow-y-auto"
     >
-      <div
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         onClick={(e) => e.stopPropagation()}
         className="pinterest-modal w-full max-w-5xl my-auto flex flex-col overflow-hidden relative max-h-[90vh]"
       >
@@ -138,7 +146,7 @@ export const DetailModal: React.FC<DetailModalProps> = ({
         <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 h-full overflow-hidden">
           {/* Left: Image area */}
           <div className="bg-[var(--color-surface-card)] p-0 md:p-6 lg:p-8 flex items-start justify-center border-r border-[var(--color-hairline)] relative overflow-y-auto h-full">
-            <img
+            <motion.img
               src={screenshot.filePath}
               alt="Pin Reference"
               className="w-full h-auto md:rounded-[16px] shadow-sm"
@@ -173,12 +181,14 @@ export const DetailModal: React.FC<DetailModalProps> = ({
                 >
                   Download .md
                 </button>
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={handleCopyPrompt}
                   className="btn-primary"
                 >
                   {copied ? 'Copied' : 'Copy'}
-                </button>
+                </motion.button>
               </div>
             </div>
 
@@ -211,7 +221,7 @@ export const DetailModal: React.FC<DetailModalProps> = ({
                   onChange={(e) => setTitle(e.target.value)}
                   onBlur={handleSaveMeta}
                   placeholder="Add a title to this pin..."
-                  className="w-full bg-[var(--color-surface-card)] text-[var(--color-ink)] text-[16px] p-4 rounded-[16px] border-none focus:outline-none focus:ring-2 focus:ring-[var(--color-focus)]"
+                  className="w-full bg-[var(--color-surface-card)] text-[var(--color-ink)] text-[16px] p-4 rounded-[16px] border-none focus:outline-none focus:ring-2 focus:ring-[var(--color-focus)] transition-all"
                 />
               </div>
 
@@ -222,50 +232,63 @@ export const DetailModal: React.FC<DetailModalProps> = ({
                   onChange={(e) => setNotes(e.target.value)}
                   onBlur={handleSaveMeta}
                   placeholder="Add a note to this pin..."
-                  className="w-full bg-[var(--color-surface-card)] text-[var(--color-ink)] text-[16px] p-4 rounded-[16px] border-none focus:outline-none focus:ring-2 focus:ring-[var(--color-focus)] resize-none"
+                  className="w-full bg-[var(--color-surface-card)] text-[var(--color-ink)] text-[16px] p-4 rounded-[16px] border-none focus:outline-none focus:ring-2 focus:ring-[var(--color-focus)] resize-none transition-all"
                   rows={2}
                 />
               </div>
 
               <div className="flex items-center justify-between pt-6 border-t border-[var(--color-hairline)]">
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={handleRegenerateClick}
                   disabled={isRegenerating || isAnalyzing}
                   className="btn-secondary"
                 >
                   <RefreshCw className={`w-4 h-4 mr-2 ${isRegenerating ? 'animate-spin' : ''}`} />
                   Regenerate
-                </button>
+                </motion.button>
 
                 {showConfirmDelete ? (
                   <div className="flex items-center gap-2">
-                    <button
+                    <motion.button
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       onClick={handleDeleteClick}
                       disabled={isDeleting}
                       className="px-4 py-2 bg-[var(--color-error)] text-white text-[14px] font-bold rounded-[16px]"
                     >
                       Delete
-                    </button>
-                    <button
+                    </motion.button>
+                    <motion.button
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       onClick={() => setShowConfirmDelete(false)}
                       className="btn-secondary"
                     >
                       Cancel
-                    </button>
+                    </motion.button>
                   </div>
                 ) : (
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.1, rotate: 10 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={() => setShowConfirmDelete(true)}
                     className="w-10 h-10 rounded-full hover:bg-[#ffebee] text-[var(--color-mute)] hover:text-[var(--color-error)] flex items-center justify-center transition-colors"
                   >
                     <Trash2 className="w-5 h-5" />
-                  </button>
+                  </motion.button>
                 )}
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
+

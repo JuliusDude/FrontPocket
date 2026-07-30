@@ -22,7 +22,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({
 }) => {
   if (screenshots.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-32 max-w-md mx-auto text-center">
+      <div className="flex flex-col items-center justify-center py-32 max-w-md mx-auto text-center animate-in fade-in zoom-in duration-500">
         <div className="w-16 h-16 rounded-full bg-[var(--color-surface-card)] flex items-center justify-center mb-6">
           <ImagePlus className="w-8 h-8 text-[var(--color-mute)]" />
         </div>
@@ -39,8 +39,12 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({
 
   return (
     <div className="masonry-grid w-full">
-      {screenshots.map((s) => (
-        <div key={s.id} className="masonry-item">
+      {screenshots.map((s, idx) => (
+        <div 
+          key={s.id} 
+          className="masonry-item animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both"
+          style={{ animationDelay: `${Math.min(idx * 50, 500)}ms` }}
+        >
           <ScreenshotCard
             screenshot={s}
             onClick={onSelectScreenshot}

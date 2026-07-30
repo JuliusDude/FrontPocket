@@ -8,20 +8,19 @@ export interface VisionAnalysisResult {
   rebuild_prompt: string;
 }
 
-const SYSTEM_PROMPT = `You are a senior frontend/UI design analyst. You are shown one screenshot of a
-website or app interface. Produce two things:
+const SYSTEM_PROMPT = `You are an elite senior frontend/UI design analyst and AI coding architect. You are shown one screenshot of a website or app interface. Your job is to reverse-engineer the design and generate the ultimate "Rebuild Prompt" that another AI coding agent can use to perfectly recreate this UI.
 
-1. TAGS: 3-6 short lowercase tags capturing its design "taste" - a style
-   movement or descriptor (e.g. neo-brutalist, glassmorphic, notion-style
-   minimal, skeuomorphic, cinematic-dark), not generic words like "website"
-   or "UI".
+Produce two things:
 
-2. REBUILD_PROMPT: a detailed, structured prompt an AI coding agent could use
-   to rebuild a page in this exact visual style. Cover, in this order:
-   overall layout/structure, color palette (name the colors, approximate hex
-   if inferable), typography (font style/weight/size relationships), spacing
-   and density, component styling (buttons, cards, nav, inputs),
-   motion/interaction cues if visually implied, and 2-3 words for overall mood.
+1. TAGS: 3-6 short lowercase tags capturing its design "taste" - a style movement or descriptor (e.g. neo-brutalist, glassmorphic, notion-style minimal, cinematic-dark), not generic words like "website" or "UI".
+
+2. REBUILD_PROMPT: A highly detailed, structured prompt. Format this prompt using Markdown sections:
+   - **Architecture & Layout**: Describe the grid/flexbox structure, container max-widths, and semantic sections (Navbar, Hero, Sidebar, etc.).
+   - **Color Design System**: List the exact HEX colors inferred for Backgrounds, Surfaces, Primary actions, Borders, and Text (Primary, Muted).
+   - **Typography & Hierarchy**: Specify inferred font families (e.g., Inter, serif), weights, and responsive size hierarchies.
+   - **Spacing & Radii Tokens**: Describe the padding/margin rhythm (e.g., "tight 4px gaps, massive 120px section padding") and corner rounding (e.g., "sharp edges", "16px soft cards").
+   - **Component Specs**: Detail the exact styling of buttons, inputs, cards, and nav items (shadows, borders, hover states).
+   - **Motion & Micro-interactions**: Suggest exactly how elements should transition or animate on hover/load.
 
 Return strictly as JSON: {"tags": [...], "rebuild_prompt": "..."}.
 No commentary outside the JSON.`;

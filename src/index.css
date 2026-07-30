@@ -42,6 +42,11 @@
     color: var(--color-body);
     font-family: 'Pin Sans', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
+
+  .hide-native-cursor,
+  .hide-native-cursor * {
+    cursor: none !important;
+  }
 }
 
 /* Custom scrollbar */

@@ -7,6 +7,9 @@ import { TagFilterBar } from './components/TagFilterBar';
 import { GalleryGrid } from './components/GalleryGrid';
 import { DetailModal } from './components/DetailModal';
 import { ToastContainer, ToastMessage } from './components/Toast';
+import { AnimatePresence } from 'framer-motion';
+import { ParticlesBackground } from './components/ParticlesBackground';
+import { CustomCursor } from './components/CustomCursor';
 
 export const App: React.FC = () => {
   const [screenshots, setScreenshots] = useState<Screenshot[]>([]);
@@ -173,7 +176,9 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--color-canvas)] text-[var(--color-body)] transition-colors">
+    <div className="min-h-screen flex flex-col text-[var(--color-body)] transition-colors relative z-0">
+      <CustomCursor />
+      <ParticlesBackground />
       {/* Primary Nav */}
       <Navbar
         searchQuery={searchQuery}
@@ -190,12 +195,14 @@ export const App: React.FC = () => {
       {/* Main Layout Area */}
       <main className="flex-1 max-w-[1920px] w-full mx-auto">
         {/* Filter bar acts as the secondary nav */}
-        <div className="px-4 sm:px-6 mt-[64px] pb-4 sticky top-[64px] z-30 bg-[var(--color-canvas)]/90 backdrop-blur-md">
-          <TagFilterBar
-            tags={tags}
-            selectedTag={selectedTag}
-            onSelectTag={setSelectedTag}
-          />
+        <div className="px-4 sm:px-6 mt-[64px] pt-6 pb-8 sticky top-[64px] z-30 bg-gradient-to-b from-[var(--color-canvas)] via-[var(--color-canvas)]/80 to-transparent pointer-events-none">
+          <div className="pointer-events-auto">
+            <TagFilterBar
+              tags={tags}
+              selectedTag={selectedTag}
+              onSelectTag={setSelectedTag}
+            />
+          </div>
         </div>
 
         {/* Pin Masonry Grid */}
@@ -217,16 +224,21 @@ export const App: React.FC = () => {
         onClose={() => setIsUploadOpen(false)}
       />
 
-      <DetailModal
-        screenshot={activeScreenshot}
-        onClose={() => setActiveScreenshot(null)}
-        onUpdate={handleUpdateScreenshot}
-        onRegenerate={handleRegenerateScreenshot}
-        onDelete={handleDeleteScreenshot}
-        onToast={addToast}
-      />
+      <AnimatePresence>
+        {activeScreenshot && (
+          <DetailModal
+            screenshot={activeScreenshot}
+            onClose={() => setActiveScreenshot(null)}
+            onUpdate={handleUpdateScreenshot}
+            onRegenerate={handleRegenerateScreenshot}
+            onDelete={handleDeleteScreenshot}
+            onToast={addToast}
+          />
+        )}
+      </AnimatePresence>
 
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />
     </div>
   );
 };
+

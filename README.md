@@ -5,7 +5,7 @@
 
   **The Local-First AI Design Reference & Prompt Vault for Frontend Engineering**
 
-  [![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](package.json)
+  [![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](package.json)
   [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
   [![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black)](https://react.dev)
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -179,7 +179,13 @@ FrontPocket/
 
 ## 📝 Release Notes & Versioning
 
-### v1.1.0 (Current)
+### v1.2.0 (Current)
+- 🪄 **Dynamic Particles Background**: Implemented a responsive, performance-optimized breathing radial gradient background with floating, mouse-parallax interacting particles.
+- 🎯 **Advanced Prompt Generation**: Completely overhauled the AI Vision parser to generate highly structured, Markdown-formatted architectural blueprints (Color, Typography, Motion, Spacing) for perfect frontend recreation.
+- 🖱️ **Modern Custom Cursor**: Replaced native cursor with a sleek, minimalist dot that automatically scales over interactive elements.
+- 🖼️ **Seamless Layering**: Replaced conflicting Framer Motion grid layouts with native Tailwind CSS transitions to permanently resolve Safari/Chrome rendering bugs.
+
+### v1.1.0
 - 🎨 **Adaptive Branding Integration**: Integrated distinct light (`logo_light.png`) and dark (`logo_dark.png`) logos for dynamic theme toggling.
 - 🔒 **Unclickable Branding**: Converted the navbar brand logo into a non-clickable visual identity anchor.
 - ⚡ **Strict Type Safety**: Resolved backend sorting parameters and type definitions across SQLite queries.

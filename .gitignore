@@ -6,3 +6,6 @@ data/*.db
 data/*.db-journal
 .env
 CONTEXT.md
+/Test
+DESIGN.md
+PRODUCT.md

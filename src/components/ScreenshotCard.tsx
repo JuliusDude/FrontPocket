@@ -41,11 +41,11 @@ export const ScreenshotCard: React.FC<ScreenshotCardProps> = ({
   return (
     <div
       onClick={handleCardClick}
-      className={`group relative flex flex-col mb-4 cursor-pointer transform-gpu ${
+      className={`group relative flex flex-col mb-4 cursor-pointer transform-gpu transition-transform duration-300 hover:-translate-y-1 ${
         isSelected ? 'ring-4 ring-[var(--color-primary)] ring-offset-2 rounded-[16px]' : ''
       }`}
     >
-      <div className="relative w-full rounded-[16px] overflow-hidden bg-[var(--color-surface-card)]">
+      <div className="relative w-full rounded-[16px] overflow-hidden bg-[var(--color-surface-card)] shadow-sm hover:shadow-xl transition-shadow duration-300">
         <img
           src={screenshot.filePath}
           alt={screenshot.title || "Pin Reference"}
@@ -54,11 +54,11 @@ export const ScreenshotCard: React.FC<ScreenshotCardProps> = ({
         />
 
         {/* Hover overlay */}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none flex flex-col justify-between p-4">
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none flex flex-col justify-between p-4">
           <div className="flex justify-end pointer-events-auto">
              <button
                onClick={handleQuickCopyPrompt}
-               className="btn-primary"
+               className="btn-primary transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300"
              >
                Copy Prompt
              </button>
